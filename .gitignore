@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+static/uploads/*
+static/output/*
+!static/uploads/.gitkeep
+!static/output/.gitkeep

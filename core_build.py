@@ -22,6 +22,18 @@ def normalize_ruta_key(ruta: str) -> str:
     return " ".join(ruta.strip().lower().split())
 
 
+def capitalizeaza_ruta(ruta: str) -> str:
+    """Petresti-BALOMIR-sibiseni-Petresti -> Petresti-Balomir-Sibiseni-Petresti.
+    Capitalizeaza fiecare segment separat de '-' (si de spatii, pt orase compuse)."""
+    segmente = ruta.strip().split("-")
+    segmente_capitalizate = []
+    for seg in segmente:
+        cuvinte = seg.split()
+        cuvinte_cap = [c.capitalize() if c else c for c in cuvinte]
+        segmente_capitalizate.append(" ".join(cuvinte_cap))
+    return "-".join(segmente_capitalizate)
+
+
 def pret_pentru_ruta(ruta: str):
     key = normalize_ruta_key(ruta)
     if key in PRET_66:
@@ -128,7 +140,7 @@ def build_document(randuri_finale, output_path: Path):
         row_cells = table.add_row().cells
         row_cells[0].text = str(idx)
         row_cells[1].text = r["data"]
-        row_cells[2].text = r["ruta"]
+        row_cells[2].text = capitalizeaza_ruta(r["ruta"])
         row_cells[3].text = str(r["nr_curse"])
         row_cells[4].text = str(r["pret"]) if r["pret"] is not None else ""
         row_cells[5].text = str(r["total"]) if r["total"] is not None else ""
